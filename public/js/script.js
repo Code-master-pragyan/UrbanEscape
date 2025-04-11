@@ -1,0 +1,32 @@
+(function () {
+    'use strict'
+  
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+  
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+  
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+
+
+  //for displaying the rating in the review form
+  function updateRatingValue(value) {
+    document.getElementById("ratingValue").innerText = value;
+}
+
+// Initialize the displayed value when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+  const slider = document.getElementById("rating");
+  const ratingValue = document.getElementById("ratingValue");
+  ratingValue.innerText = slider.value; // Set the initial value
+});

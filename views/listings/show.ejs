@@ -11,58 +11,72 @@
                 <img src="<%= singleList.image.url %>" class="card-img-top show-img" alt="listimage">
                 <div class="card-body">
                     <p class="card-text show-card-text">
-                        <i>
-                            <%= singleList.description %>
-                        </i><br>
-                        Price: &#8377;<%= singleList.price ? singleList.price.toLocaleString("en-IN") : "N/A" %>/night
-                            <br>
-                            Location: <%= singleList.location %> <br>
-                                Country: <%= singleList.country %>
+                       Owned By- <%= singleList.owner.username %>
                     </p>
-                    <div class="btns">
-                        <a href="/listings/<%= singleList._id %>/edit" class="btn btn-dark col-2 add-btn">Edit</a>
-                    </div>
-                    <form method="POST" action="/listings/<%= singleList._id%>/?_method=DELETE">
-                        <button class="btn btn-dark col-2 mt-3">Delete</button>
-                    </form>
-                    <hr>
-                    <div class="col-8 mt-3">
-                        <h4>Leave a Review</h4>
-                        <form method="POST" action="/listings/<%=singleList._id%>/reviews" novalidate
-                            class="needs-validation">
-                            <div class="mb-3 mt-3">
-                                <label for="rating" class="form-lable">Rating: <span id="ratingValue"></span></label>
-                                <input type="range" name="review[rating]" id="rating" min="1" max="5" step="1"
-                                    class="form-range" oninput="updateRatingValue(this.value)">
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="comment" class="form-lable">Comments</label>
-                                <textarea name="review[comment]" id="comment" cols="50" rows="4" class="form-control"
-                                    required></textarea>
-                                <div class="invalid-feedback">
-                                    Please provide a comment
+                    <p class="card-text show-card-text"><i>
+                            <%= singleList.description %>
+                        </i>
+                    </p>
+                    <p class="card-text show-card-text">Price: &#8377;<%= singleList.price ? singleList.price.toLocaleString("en-IN") : "N/A" %>/night</p>
+                    <p class="card-text show-card-text">Location: <%= singleList.location %> <br></p>
+                    <p class="card-text show-card-text">Country: <%= singleList.country %></p>
+                    <% if(currUser && currUser._id.equals(singleList.owner._id)) { %>
+                                <div class="btns">
+                                    <a href="/listings/<%= singleList._id %>/edit"
+                                        class="btn btn-dark col-2 add-btn">Edit</a>
                                 </div>
-                            </div>
-                            <button class="btn btn-outline-dark">Submit</button>
-                        </form>
-                    </div>
-                    <hr>
-
-                    <p style="font-size: 1.2rem;"><b>All Reviews</b></p>
-                    <div class="row">
-                        <% for(review of singleList.reviews) { %>
-                        <div class="card review-card col-5 ms-4 mb-3 p-1">
-                            <div class="card-body review-card-body mb-1">
-                                <h5 class="card-title">Pragyan</h5>
-                                <p class="card-text"><%= review.comment %></p>
-                                <p class="card-text mb-2"><%= review.rating %> Stars⭐</p>
-                                <form class="mb-2" method="POST" action="/listings/<%= singleList._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                    <button class="btn btn-sm btn-dark">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                        <% } %>
-                    </div>
+                                <form method="POST" action="/listings/<%= singleList._id%>/?_method=DELETE">
+                                    <button class="btn btn-dark col-2 mt-3">Delete</button>
+                                </form>   
+                    <% } %>
+                                <hr>
+                                <% if(currUser) { %>
+                                <div class="col-8 mt-3">
+                                    <h4>Leave a Review</h4>
+                                    <form method="POST" action="/listings/<%=singleList._id%>/reviews" novalidate
+                                        class="needs-validation">
+                                        <div class="mb-3 mt-3">
+                                            <label for="rating" class="form-lable">Rating: <span
+                                                    id="ratingValue"></span></label>
+                                            <input type="range" name="review[rating]" id="rating" min="1" max="5"
+                                                step="1" class="form-range" oninput="updateRatingValue(this.value)">
+                                        </div>
+                                        <div class="mb-3 mt-3">
+                                            <label for="comment" class="form-lable">Comments</label>
+                                            <textarea name="review[comment]" id="comment" cols="50" rows="4"
+                                                class="form-control" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Please provide a comment
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-dark">Submit</button>
+                                    </form>
+                                </div>
+                                <hr>
+                                <% } %>
+                                
+                                <p style="font-size: 1.2rem;"><b>All Reviews</b></p>
+                                <div class="row">
+                                    <% for(review of singleList.reviews) { %>
+                                        <div class="card review-card col-5 ms-4 mb-3 p-1">
+                                            <div class="card-body review-card-body mb-1">
+                                                <h5 class="card-title">@<%= review.author.username %></h5>
+                                                <p class="card-text">
+                                                    <%= review.comment %>
+                                                </p>
+                                                <p class="card-text mb-2">
+                                                    <%= review.rating %> Stars⭐
+                                                </p>
+                                                <% if(currUser && currUser._id.equals(review.author._id)) { %>
+                                                <form class="mb-2" method="POST"
+                                                    action="/listings/<%= singleList._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                    <button class="btn btn-sm btn-dark">Delete</button>
+                                                </form>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                </div>
                 </div>
             </div>
         </div>

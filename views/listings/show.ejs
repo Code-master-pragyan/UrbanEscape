@@ -1,83 +1,113 @@
 <% layout("/layouts/boilerplate") %>
+    <script>
+        const mapToken = "<%= process.env.MAP_TOKEN %>";
+        const listing = <%- JSON.stringify(singleList) %>;
+    </script>
 
-    <body>
-        <div class="row">
-            <div class="col-8 offset-3">
-                <h3 style="margin: 3rem 0; color: #fe424d;">
-                    <%= singleList.title %>
-                </h3>
-            </div>
-            <div class="card col-6 offset-3">
-                <img src="<%= singleList.image.url %>" class="card-img-top show-img" alt="listimage">
-                <div class="card-body">
-                    <p class="card-text show-card-text">
-                       Owned By- <%= singleList.owner.username %>
-                    </p>
-                    <p class="card-text show-card-text"><i>
-                            <%= singleList.description %>
-                        </i>
-                    </p>
-                    <p class="card-text show-card-text">Price: &#8377;<%= singleList.price ? singleList.price.toLocaleString("en-IN") : "N/A" %>/night</p>
-                    <p class="card-text show-card-text">Location: <%= singleList.location %> <br></p>
-                    <p class="card-text show-card-text">Country: <%= singleList.country %></p>
-                    <% if(currUser && currUser._id.equals(singleList.owner._id)) { %>
-                                <div class="btns">
-                                    <a href="/listings/<%= singleList._id %>/edit"
-                                        class="btn btn-dark col-2 add-btn">Edit</a>
-                                </div>
-                                <form method="POST" action="/listings/<%= singleList._id%>/?_method=DELETE">
-                                    <button class="btn btn-dark col-2 mt-3">Delete</button>
-                                </form>   
-                    <% } %>
-                                <hr>
-                                <% if(currUser) { %>
-                                <div class="col-8 mt-3">
-                                    <h4>Leave a Review</h4>
-                                    <form method="POST" action="/listings/<%=singleList._id%>/reviews" novalidate
-                                        class="needs-validation">
-                                        <div class="mb-3 mt-3">
-                                            <label for="rating" class="form-lable">Rating: <span
-                                                    id="ratingValue"></span></label>
-                                            <input type="range" name="review[rating]" id="rating" min="1" max="5"
-                                                step="1" class="form-range" oninput="updateRatingValue(this.value)">
-                                        </div>
-                                        <div class="mb-3 mt-3">
-                                            <label for="comment" class="form-lable">Comments</label>
-                                            <textarea name="review[comment]" id="comment" cols="50" rows="4"
-                                                class="form-control" required></textarea>
-                                            <div class="invalid-feedback">
-                                                Please provide a comment
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-outline-dark">Submit</button>
-                                    </form>
-                                </div>
-                                <hr>
-                                <% } %>
-                                
-                                <p style="font-size: 1.2rem;"><b>All Reviews</b></p>
-                                <div class="row">
-                                    <% for(review of singleList.reviews) { %>
-                                        <div class="card review-card col-5 ms-4 mb-3 p-1">
-                                            <div class="card-body review-card-body mb-1">
-                                                <h5 class="card-title">@<%= review.author.username %></h5>
-                                                <p class="card-text">
-                                                    <%= review.comment %>
-                                                </p>
-                                                <p class="card-text mb-2">
-                                                    <%= review.rating %> Stars⭐
-                                                </p>
-                                                <% if(currUser && currUser._id.equals(review.author._id)) { %>
-                                                <form class="mb-2" method="POST"
-                                                    action="/listings/<%= singleList._id %>/reviews/<%= review._id %>?_method=DELETE">
-                                                    <button class="btn btn-sm btn-dark">Delete</button>
-                                                </form>
-                                                <% } %>
-                                            </div>
-                                        </div>
-                                        <% } %>
-                                </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-8 offset-3">
+            <h3 style="margin: 1rem 0; color: #fe424d;">
+                <%= singleList.title %>
+            </h3>
         </div>
-    </body>
+        <div class="card col-6 offset-3">
+            <img src="<%= singleList.image.url %>" class="card-img-top show-img" alt="listimage">
+            <div class="card-body">
+                <p class="card-text show-card-text">
+                        Owned By- @<%= singleList.owner.username %>
+                </p>
+                <p class="card-text  show-desc"> 
+                    <%= singleList.description %>
+                </p>
+
+                <p class="card-text show-price">Price: &#8377;<%= singleList.price ? singleList.price.toLocaleString("en-IN")
+                        : "N/A" %>/night</p>
+                <p class="card-text show-loc">Location: <%= singleList.location %>
+                </p>
+                <p class="card-text show-count">Country: <%= singleList.country %>
+                </p>
+
+                <% if(currUser && currUser._id.equals(singleList.owner._id)) { %>
+                    <div class="btns">
+                        <a href="/listings/<%= singleList._id %>/edit" class="btn btn-dark col-2 add-btn">Edit</a>
+                    </div>
+                    <form method="POST" action="/listings/<%= singleList._id%>/?_method=DELETE">
+                        <button class="btn btn-dark col-2 mt-3">Delete</button>
+                    </form>
+                    <% } %>
+            </div>
+            <hr>
+            <% if(currUser) { %>
+                <div class="col-8 mt-3">
+                    <h4>Leave a Review</h4>
+                    <form method="POST" action="/listings/<%=singleList._id%>/reviews" novalidate
+                        class="needs-validation">
+                        <div class="mb-3 mt-3">
+                            <label for="rating" class="form-lable" style="margin-bottom: 1rem !important;">Rating:
+                                <span id="ratingValue"></span></label>
+                            <fieldset class="starability-growRotate">
+                                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0"
+                                    checked aria-label="No rating." oninput="updateRatingValue(value)" />
+                                <input type="radio" id="first-rate1" name="review[rating]" value="1"
+                                    oninput="updateRatingValue(value)" />
+                                <label for="first-rate1" title="Terrible">1 star</label>
+                                <input type="radio" id="first-rate2" name="review[rating]" value="2"
+                                    oninput="updateRatingValue(value)" />
+                                <label for="first-rate2" title="Not good">2 stars</label>
+                                <input type="radio" id="first-rate3" name="review[rating]" value="3"
+                                    oninput="updateRatingValue(value)" />
+                                <label for="first-rate3" title="Average">3 stars</label>
+                                <input type="radio" id="first-rate4" name="review[rating]" value="4"
+                                    oninput="updateRatingValue(value)" />
+                                <label for="first-rate4" title="Very good">4 stars</label>
+                                <input type="radio" id="first-rate5" name="review[rating]" value="5"
+                                    oninput="updateRatingValue(value)" />
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+                            </fieldset>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="comment" class="form-lable">Comments</label>
+                            <textarea name="review[comment]" id="comment" cols="50" rows="4" class="form-control"
+                                required></textarea>
+                            <div class="invalid-feedback">
+                                Please provide a comment
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-dark">Submit</button>
+                    </form>
+                </div>
+                <hr>
+                <% } %>
+
+                    <% if(singleList.reviews.length> 0) {%>
+                        <div class="row">
+                            <p style="font-size: 1.2rem;"><b>All Reviews</b></p>
+                            <% for(review of singleList.reviews) { %>
+                                <div class="card review-card col-5 ms-4 mb-3 p-1">
+                                    <div class="card-body review-card-body mb-1">
+                                        <h5 class="card-title">@<%= review.author.username %>
+                                        </h5>
+                                        <p class="starability-result card-text" data-rating="<%= review.rating %>">
+                                        </p>
+                                        <p class="card-text">
+                                            <%= review.comment %>
+                                        </p>
+                                        <% if(currUser && currUser._id.equals(review.author._id)) { %>
+                                            <form class="mb-2" method="POST"
+                                                action="/listings/<%= singleList._id %>/reviews/<%= review._id %>?_method=DELETE">
+                                                <button class="btn btn-sm btn-dark">Delete</button>
+                                            </form>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <% } %>
+                        </div>
+                        <% } %>
+        </div>
+        <div class="col-8 offset-3 mb-3">
+            <h3>Where you'll be</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="/js/map.js"></script>

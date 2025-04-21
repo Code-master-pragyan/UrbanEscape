@@ -6,53 +6,22 @@ const ExpressError = require("../utils/ExpressError.js");
 const User = require("../models/user.js");
 const passport = require("passport");
 const { saveRedirectUrl } = require('../middleware.js');
+const userController = require("../controllers/users.js");
 
-router.get("/signup", (req, res) => {
-    res.render("./users/signup.ejs");
-})
+// signup form and signup together using router.route
+router.route("/signup")
+    .get(userController.signupForm)
+    .post(wrapAsync(userController.signup))
 
-router.post("/signup", wrapAsync(async (req, res) => {
-    try {
-        let { username, password, email } = req.body;
-        let newUser = new User({ username, email });
-        let registeredUser = await User.register(newUser, password);
-        //console.log(registeredUser);
-        req.login(registeredUser, (err) => {
-            if (err) {
-                return next(err);
-            }
-            req.flash("success", "Welcome to UrbanEscape");
-            res.redirect("/listings");
-        })
+// login form and  login together using router.route
+router.route("/login")
+    .get(userController.loginForm)
+    .post(saveRedirectUrl, passport.authenticate("local", {
+        failureRedirect: "/login",
+        failureFlash: true,
+    }), userController.login);
 
-    }
-    catch (err) {
-        req.flash("error", err.message);
-        res.redirect("/signup");
-    }
-
-}))
-
-router.get("/login", (req, res) => {
-    res.render("./users/login.ejs");
-})
-
-router.post("/login",saveRedirectUrl, passport.authenticate("local", {
-    failureRedirect: "/login",
-    failureFlash: true,
-}), async (req, res) => {
-    req.flash("success", "Welcome back to UrbanEscape!");
-    res.redirect(res.locals.redirectUrl || "/listings");
-})
-
-router.get("/logout", (req, res, next) => {
-    req.logout((err) => {
-        if (err) {
-            return next(err);
-        }
-        req.flash("success", "You are logged out");
-        res.redirect("/listings");
-    })
-})
+// logout
+router.get("/logout", userController.logout);
 
 module.exports = router;

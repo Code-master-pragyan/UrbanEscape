@@ -1,14 +1,83 @@
-<footer>
-    <div class="f-info">
-        <div class="f-info-socials">
-            <i class="fa-brands fa-square-facebook"></i>
-            <i class="fa-brands fa-square-instagram"></i>
-            <i class="fa-brands fa-linkedin"></i>
-        </div>
-        <div> urbanEscape Private Limited&copy;</div>
-        <div class="f-info-links">
-            <a href="/privacy">Privacy</a>
-            <a href="/terms">Terms</a>
-        </div>
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* body {
+    display: flex;
+    flex-direction: column;
+  } */
+
+  /* .container {
+    position:absolute;
+    bottom: 0;
+    align-items: center;
+  }  */
+
+  .newsletter{
+    margin: 0 0 16px auto;
+  }
+
+  .footer-icons i {
+    font-size: 1.6rem;
+    color: #fe424d;
+  }
+
+  .footer-icons i:hover {
+    transform: translateY(-2px);
+  }
+
+  .section li a:hover {
+    transform: translateX(5px);
+  }
+</style>
+
+<div class="container mt-4">
+  <footer class="border-top">
+    <div class="row">
+      <div class="col-6 col-md-2 mb-3 section">
+        <h5>Popular Stays</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Hotels</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Resorts</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Apartments</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Villas</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Guest Houses</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-2 mb-3 section">
+        <h5>Explore</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Top Destinations</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Travel Guides</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Deals & Offers</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Customer Stories</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Blog</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-5 offset-md-1 mb-3 newsletter">
+        <form>
+          <h5>Subscribe to our newsletter</h5>
+          <p>Monthly digest of what's new and exciting from us.</p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">Email address</label>
+            <input id="newsletter1" type="email" class="form-control" placeholder="Email address">
+            <button class="btn-footer" type="button">Subscribe</button>
+          </div>
+        </form>
+      </div>
     </div>
-</footer>
+
+    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+      <p>© 2025 UrbanEscape, Inc. All rights reserved.</p>
+      <ul class="list-unstyled d-flex  footer-icons">
+        <li class="ms-3"><a class="link-body-emphasis" href="#"><i class="fa-brands fa-instagram"></i></a></li>
+        <li class="ms-3"><a class="link-body-emphasis" href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
+      </ul>
+    </div>
+  </footer>
+</div>

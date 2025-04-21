@@ -3,8 +3,8 @@
     <body>
         <div class="row">
             <div class="col-8 offset-2">
-                <h3 style="margin: 3rem 0; color: #fe424d;">Edit the Listing</h3>
-                <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
+                <h3 style="margin: 1.3rem 0; color: #fe424d;">Edit the Listing</h3>
+                <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-lable">Title</label>
                         <input name="title" value="<%= listing.title%>" type="text" class="form-control" required>
@@ -26,14 +26,12 @@
                           </div>
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-lable">Image</label>
-                        <input type="text" name="image.url" class="form-control" value="<%= listing.image.url%>" required>
-                        <div class="invalid-feedback">
-                            Link is not valid
-                          </div>
-                          <div class="valid-feedback">
-                            valid link
-                        </div>
+                        <label class="form-lable">Current Iamge</label><br>
+                        <img src="<%=originalImageUrl%>" alt="Current Image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-lable">Upload New Image</label>
+                        <input type="file" name="listing[image]" class="form-control">
                     </div>
                     <div class="row">
                         <div class="mb-3 col-md-4">
@@ -68,7 +66,22 @@
                             you should enter the country
                           </div>
                     </div>
-                    <br>
+
+                    <div class="mb-3">
+                        <select name="category" class="form-control" required>
+                            <option value="">-- Select a Category --</option>
+                            <option value="Trending">Trending</option>
+                            <option value="Rooms">Rooms</option>
+                            <option value="Iconic cities">Iconic cities</option>
+                            <option value="Mountains">Mountains</option>
+                            <option value="Castles">Castles</option>
+                            <option value="Amaizing Pools">Amaizing Pools</option>
+                            <option value="Camping">Camping</option>
+                            <option value="Farms">Farms</option>
+                            <option value="Hotels">Hotels</option>
+                            <option value="Arctic">Arctic</option>
+                        </select>
+                    </div>
                     <button class="btn btn-dark add-btn" style="margin-bottom: 3rem;">Edit</button>
                 </form>
             </div>

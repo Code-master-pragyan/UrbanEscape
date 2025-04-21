@@ -45,7 +45,24 @@ const listingSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+    },
+    geometry: {
+        type:{
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
+    },
+    category: {
+        type: String,
+        enum: ["Trending", "Rooms", "Iconic cities", "Mountains", "Castles", "Amaizing Pools", "Camping", "Farms", "Hotels", "Arctic"],
+        required: true
     }
+    
 })
 
 // Middleware to delete reviews when a listing is deleted

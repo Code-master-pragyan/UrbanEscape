@@ -3,20 +3,10 @@
   body {
     margin: 0;
     padding: 0;
+    position: relative;
   }
 
-  /* body {
-    display: flex;
-    flex-direction: column;
-  } */
-
-  /* .container {
-    position:absolute;
-    bottom: 0;
-    align-items: center;
-  }  */
-
-  .newsletter{
+  .newsletter {
     margin: 0 0 16px auto;
   }
 
@@ -32,9 +22,45 @@
   .section li a:hover {
     transform: translateX(5px);
   }
+
+  .btn-footer {
+    background-color: #fe424d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-footer:hover {
+    background-color: #dc3b44;
+  }
+
+  @media (max-width: 767.98px) {
+    .newsletter {
+      margin-top: 2rem !important;
+    }
+
+    .rights p {
+      font-size: 0.9rem !important;
+      text-align: center !important;
+    }
+
+    .rights ul {
+      margin: 1rem 0 !important;
+    }
+
+    .section h5 {
+      font-size: 1rem !important;
+    }
+
+    .section ul li a {
+      font-size: 0.9rem !important;
+    }
+  }
 </style>
 
-<div class="container mt-4">
+<div class="container-fluid mt-4 px-4">
   <footer class="border-top">
     <div class="row">
       <div class="col-6 col-md-2 mb-3 section">
@@ -62,7 +88,7 @@
       <div class="col-md-5 offset-md-1 mb-3 newsletter">
         <form>
           <h5>Subscribe to our newsletter</h5>
-          <p>Monthly digest of what's new and exciting from us.</p>
+          <p class="text-body-secondary">Monthly digest of what's new and exciting from us.</p>
           <div class="d-flex flex-column flex-sm-row w-100 gap-2">
             <label for="newsletter1" class="visually-hidden">Email address</label>
             <input id="newsletter1" type="email" class="form-control" placeholder="Email address">
@@ -72,7 +98,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top rights">
       <p>© 2025 UrbanEscape, Inc. All rights reserved.</p>
       <ul class="list-unstyled d-flex  footer-icons">
         <li class="ms-3"><a class="link-body-emphasis" href="#"><i class="fa-brands fa-instagram"></i></a></li>

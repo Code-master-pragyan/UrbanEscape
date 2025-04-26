@@ -42,7 +42,7 @@ textarea:focus{
 
 .fa-compass {
     color: #fe424d;
-    font-size: 2rem;
+    font-size: 2.3rem;
 }
 
 .nav-link {
@@ -150,13 +150,13 @@ footer {
 /*showpage*/
 
 .show-img {
-    height: 50vh;
+    height: 60vh !important;
     object-fit: cover !important;
     object-position: center !important;
 }
 
 .btns {
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
 }
 
@@ -208,7 +208,7 @@ footer {
 
 .review-card-body {
     padding: 1rem !important;
-    margin: 0 !important;
+    margin: 1rem !important;
 }
 
 
@@ -220,3 +220,46 @@ footer {
     border-radius: 8px;
     box-shadow: 0px 0px 5px #222222;
 }
+
+
+  @media (max-width: 768px) {
+    #map {
+        width: 100% !important;
+        height: 300px !important;
+        border-radius: 0px !important;
+    }
+
+    .map-container {
+        width: 100% !important;
+        margin: 0 auto;
+      }
+
+      .show-img {
+        height: 40vh !important;
+        object-fit: cover !important;
+        object-position: center !important;
+    }
+
+    .btns {
+        display: flex !important;
+        justify-content: space-between;
+    }
+  }
+  
+
+/*Animated Background */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: white; /* in case particles don't fill fully */
+  }
+  
+  @media (max-width: 768px) {
+    #particles-js {
+      display: none;
+    }
+  }

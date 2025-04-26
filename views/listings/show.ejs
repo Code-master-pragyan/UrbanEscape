@@ -5,16 +5,16 @@
     </script>
 
     <div class="row">
-        <div class="col-8 offset-3">
+        <div class="col-12 col-md-8 offset-md-3">
             <h3 style="margin: 1rem 0; color: #fe424d;">
                 <%= singleList.title %>
             </h3>
         </div>
-        <div class="card col-6 offset-3">
-            <img src="<%= singleList.image.url %>" class="card-img-top show-img" alt="listimage">
+        <div class="card col-12 col-md-6 offset-md-3">
+            <img src="<%= singleList.image.url %>" class="card-img-top show-img img-fluid" alt="listimage">
             <div class="card-body">
                 <p class="card-text show-card-text">
-                        Owned By- @<%= singleList.owner.username %>
+                        @<%= singleList.owner.username %>
                 </p>
                 <p class="card-text  show-desc"> 
                     <%= singleList.description %>
@@ -28,17 +28,17 @@
                 </p>
 
                 <% if(currUser && currUser._id.equals(singleList.owner._id)) { %>
-                    <div class="btns">
-                        <a href="/listings/<%= singleList._id %>/edit" class="btn btn-dark col-2 add-btn">Edit</a>
+                    <div class="d-flex justify-content-between mt-3 gap-2">
+                        <a href="/listings/<%= singleList._id %>/edit" class="btn btn-danger w-50">Edit</a>
+                        <form method="POST" action="/listings/<%= singleList._id%>/?_method=DELETE" class="w-50">
+                            <button class="btn btn-dark w-100">Delete</button>
+                        </form>
                     </div>
-                    <form method="POST" action="/listings/<%= singleList._id%>/?_method=DELETE">
-                        <button class="btn btn-dark col-2 mt-3">Delete</button>
-                    </form>
                     <% } %>
             </div>
             <hr>
             <% if(currUser) { %>
-                <div class="col-8 mt-3">
+                <div class="col-12 col-md-8 mt-3">
                     <h4>Leave a Review</h4>
                     <form method="POST" action="/listings/<%=singleList._id%>/reviews" novalidate
                         class="needs-validation">
@@ -83,7 +83,7 @@
                         <div class="row">
                             <p style="font-size: 1.2rem;"><b>All Reviews</b></p>
                             <% for(review of singleList.reviews) { %>
-                                <div class="card review-card col-5 ms-4 mb-3 p-1">
+                                <div class="card review-card col-12 col-md-5 ms-md-4 mb-3 p-1">
                                     <div class="card-body review-card-body mb-1">
                                         <h5 class="card-title">@<%= review.author.username %>
                                         </h5>
@@ -104,10 +104,12 @@
                         </div>
                         <% } %>
         </div>
-        <div class="col-8 offset-3 mb-3">
+        <div class="col-12 col-md-8 offset-md-3 mb-3">
             <h3>Where you'll be</h3>
-            <div id="map"></div>
-        </div>
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </div>        
     </div>
 
     <script src="/js/map.js"></script>

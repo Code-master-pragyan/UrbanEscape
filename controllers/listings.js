@@ -3,6 +3,7 @@ if (process.env.NODE_ENV != "production") {
 }
 
 const Listing = require("../models/listing.js");
+const { processAIQuery } = require("../utils/ai.js");
 const mongoose = require("mongoose");
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
@@ -10,22 +11,20 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 //index route
 module.exports.index = async (req, res) => {
-    //console.log("QUERY:", req.query);
-    const { category, search} = req.query;
+    const { category, search } = req.query;
     let filter = {};
 
     if (category) {
         filter.category = category;
     }
     if (search) {
-        // Use regular expressions to search for both location and country
         filter.$or = [
-            { location: { $regex: search, $options: 'i' } },  // Case-insensitive search for location
-            { country: { $regex: search, $options: 'i' } }    // Case-insensitive search for country
+            { location: { $regex: search, $options: 'i' } },
+            { country: { $regex: search, $options: 'i' } }
         ];
     }
-    const allListings = await Listing.find(filter);
-    res.render("./listings/index.ejs", { allListings });
+    const listings = await Listing.find(filter);
+    res.render("./listings/index.ejs", { listings });
 }
 
 //new form route
@@ -42,14 +41,14 @@ module.exports.show = async (req, res, next) => {
         return next(new ExpressError(400, "Invalid Listing ID"));
     }
 
-    const singleList = await Listing.findById(id).populate({ path: "reviews", populate: { path: "author", model: "User" } }).populate("owner");
+    const listingDetails = await Listing.findById(id).populate({ path: "reviews", populate: { path: "author", model: "User" } }).populate("owner");
 
-    if (!singleList) {
+    if (!listingDetails) {
         req.flash("error", "Listing you are looking for does not exist");
         return res.redirect("/listings");
     }
 
-    res.render("./listings/show.ejs", { singleList });
+    res.render("./listings/show.ejs", { singleList: listingDetails });
 }
 
 //create route 
@@ -111,4 +110,13 @@ module.exports.deleteListing = async (req, res) => {
     //console.log(deletedListing);
     req.flash("success", "Listing deleted");
     res.redirect("/listings");
+}
+
+module.exports.processAIQuery = async (req, res) => {
+    const { message } = req.body;
+    if (!message) {
+        throw new ExpressError(400, "Message is required");
+    }
+    const response = await processAIQuery(message);
+    res.json(response);
 }

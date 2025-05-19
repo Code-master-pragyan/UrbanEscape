@@ -9,6 +9,7 @@ const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const { isLoggedIn, isOwner } = require("../middleware.js")
 const listingController = require("../controllers/listings.js");
+const { processAIQuery } = require("../utils/ai.js");
 const multer  = require('multer');
 const {storage} = require("../cloudConfig.js");
 const upload = multer ({storage});
@@ -41,6 +42,8 @@ router.route("/:id")
 
 // edit route
 router.get("/:id/edit", isLoggedIn, isOwner, listingController.editForm);
+
+router.post("/ai-chat", wrapAsync( listingController.processAIQuery));
 
 
 

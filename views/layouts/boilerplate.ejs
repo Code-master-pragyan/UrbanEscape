@@ -11,17 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="/css/rating.css">
-        <link href="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.css" rel="stylesheet">
-        <script src="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="/css/rating.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.js"></script>
 </head>
 
 <body>
+    <div id="particles-js"></div> <!-- Particle animation background -->
     <%- include("../includes/navbar.ejs") %>
-
         <div class="container">
             <%- include("../includes/flash.ejs") %>
-            <%- body %>
+                <%- body %>
         </div>
 
         <%- include("../includes/footer.ejs") %>
@@ -29,6 +29,40 @@
                 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
                 crossorigin="anonymous"></script>
             <script src="/js/script.js"></script>
-            
+            <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+            <script>
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                        "color": { "value": "#ff4d4d" },
+                        "shape": { "type": "circle" },
+                        "opacity": { "value": 0.5 },
+                        "size": { "value": 3 },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#ff4d4d",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": { "enable": true, "speed": 2 }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": { "enable": true, "mode": "repulse" },
+                            "onclick": { "enable": true, "mode": "push" }
+                        },
+                        "modes": {
+                            "repulse": { "distance": 100 },
+                            "push": { "particles_nb": 4 }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            </script>
+
+
 </body>
+
 </html>

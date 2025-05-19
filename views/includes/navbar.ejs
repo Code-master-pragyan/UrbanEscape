@@ -4,63 +4,174 @@
     padding: 0;
   }
 
-  .btn-search {
-    background-color: #fe424d;                              
-    color: #fff;
-    border-radius: 25px;
-    padding: 0 1rem 0 1rem;
-  }
-
-  .btn-search:hover {
+  .navbar .btn-search-d {
+    padding: 9px !important;
+    width: 90px;
+    height: 40px;
+    font-size: 0.9rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     background-color: #fe424d;
     color: #fff;
+    border-radius: 7px !important;
   }
 
-  .btn-search i {
+  .d-none .btn-search-d:hover {
+    background-color: #fe424d !important;
+    color: #fff !important;
+  }
+
+  .btn-search-d i {
     display: inline;
     margin-right: 0.5rem;
   }
 
-  .search-inp {
-    border-radius: 25px;
-    padding: 0.5rem 2rem 0.5rem 2rem;
+  .blur-bg {
+    backdrop-filter: blur(8px) !important;
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .search-inp-d {
+    width: 350px !important;
+    min-width: 3rem !important;
+    border-radius: 7px;
+  }
+
+  .navbar-brand .fa-compass {
+    margin-top: 0.3rem !important;
+  }
+
+  @media (max-width: 767.98px) {
+
+    .search-inp {
+      width: 120px;
+      border-radius: 50px;
+      height: 35px;
+      margin-left: 0px !important;
+      font-size: 0.8rem !important;
+      border-radius: 7px !important;
+    }
+
+    .d-md-none {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .d-md-none .fa-magnifying-glass {
+      margin-right: 2px !important;
+    }
+
+    .navbar .btn-search {
+      padding: 0;
+      width: 60px;
+      height: 35px;
+      font-size: 0.6rem;
+      background-color: #fe424d;
+      color: #fff;
+      border-radius: 7px !important;
+    }
+
+    .navbar .btn-search:hover {
+      background-color: #fe424d !important;
+      color: #fff !important
+    }
+
+    .navbar-brand .fa-compass {
+      font-size: 1.9rem;
+      margin-top: 6px !important;
+    }
+
+    .navbar-toggler {
+      box-shadow: none !important;
+      background: transparent !important;
+      font-size: 1rem !important;
+      margin-left: 10px !important;
+    }
+
+    .navbar-nav {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    .navbar-nav .logout {
+      margin-left: 0 !important;
+      width: 35% !important;
+      border: 1px solid #fe424d !important;
+      background: transparent !important;
+      border-radius: 25px !important;
+      padding: 0.5rem 1rem !important;
+      display: flex !important;
+      justify-content: center !important;
+    }
+
+    .logout:hover {
+      background-color: #fe424d !important;
+      color: #fff !important;
+    }
   }
 </style>
 
 
-
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+  <div class="container-fluid d-flex align-items-center justify-content-end flex-wrap">
+
+    <!-- Logo -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i>
+    </a>
+
+    <!-- Search - visible on small screens only -->
+    <div class="d-md-none flex-grow-1 mx-2">
+      <form action="/listings" method="GET" class="d-flex justify-content-center">
+        <input type="search" name="search" class="form-control me-2 search-inp" placeholder="Search"
+          aria-label="Search">
+        <button class="btn btn-search" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+    </div>
+
+    <!-- Toggler (hamburger) -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <div class="navbar-nav">
+
+    <!-- Desktop Search - visible only on md+ -->
+    <div class="d-none d-md-flex mx-auto align-items-center">
+      <form action="/listings" method="GET" class="d-flex">
+        <input type="search" name="search" class="form-control me-2 search-inp-d" placeholder="Search the destination"
+          aria-label="Search">
+        <button class="btn btn-search-d" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+      <!-- AI Button - Stylish Animation -->
+      <div class="col-md-6 ai-toggle-button d-none d-md-block">
+        <div class="mb-2 text-center">
+          <div class="button-wrapper">
+            <button class="ai-btn" id="aiToggle"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collapse Content -->
+    <div class="collapse navbar-collapse blur-bg p-2" id="navbarNav">
+      <div class="navbar-nav ms-auto d-flex flex-row gap-3">
         <a class="nav-link" href="/listings">Explore</a>
         <a class="nav-link" href="/listings/new">Add new Listing</a>
-      </div>
 
-      <div class="navbar-nav ms-auto">
-        <form action="/listings" method="GET" role="search" class="d-flex">
-          <input type="search" name="search" class="form-control me-2 search-inp" placeholder="Search the destination"
-            aria-label="Search" autofocus>
-          <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-        </form>
-      </div>
-      <div class="navbar-nav ms-auto">
-        <% if(!currUser) {%>
+        <% if (!currUser) { %>
           <a class="nav-link" href="/signup">Sign Up</a>
           <a class="nav-link" href="/login">Log in</a>
-          <% } %>
-            <% if(currUser) {%>
-              <a class="nav-link" href="/signup">Sign Up</a>
-              <a class="nav-link" href="/login">Log in</a>
-              <a class="nav-link logout" href="/logout">Log out</a>
-              <% } %>
+          <% } else { %>
+            <a class="nav-link logout" href="/logout">Log out</a>
+            <% } %>
       </div>
-      </ul>
     </div>
+  </div>
+
   </div>
 </nav>

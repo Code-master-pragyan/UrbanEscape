@@ -11,6 +11,9 @@ async function processAIQuery(userMessage) {
 
         if (searchParams) {
             listings = await Listing.find(searchParams).limit(10);
+            console.log("🔍 Query used by AI:", searchParams);
+            console.log("📦 Listings found:", listings);
+
 
             if (listings.length > 0) {
                 const totalCount = listings.length;

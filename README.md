@@ -49,17 +49,7 @@ npm install
 # Start the server
 npm start
 App will be running at http://localhost:3000
-
-📸 Screenshots
-🏨 Listings Page
-
-🤖 Travel AI Assistant
-
-🗺️ Location Map
-
-📖 Review Section
-
-(Screenshots are from the live version. Replace image links if storing locally)
+```
 
 ✨ Contributors
 👨‍💻 Pragyan Lahkar - @Code-master-pragyan
@@ -71,21 +61,5 @@ For feedback or suggestions:
 📄 License
 This project is open source and available under the MIT License.
 
-markdown
-Copy
-Edit
-
 ---
 
-### ✅ What to do next:
-
-1. Create a `screenshots/` folder in your repo.
-2. Save the 4 images you uploaded as:
-   - `listings.png`
-   - `assistant.png`
-   - `map.png`
-   - `reviews.png`
-3. Push them to the `screenshots/` folder.
-4. Paste the README into `README.md` and commit.
-
-Let me know if you'd like to add badges, deployment guide, or environment variable sample format.

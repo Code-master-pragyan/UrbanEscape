@@ -2,7 +2,7 @@
 
 UrbanEscape is a full-stack travel listing platform that allows users to **explore**, **book**, and **review** travel accommodations across India. Users can browse listings by category, view locations on the map, and interact with an AI-powered travel assistant.
 
-🔗 [Live Demo](https://urbanescape.onrender.com)
+🔗 [Live Demo](https://urbanescape.onrender.com/listings)
 
 ---
 
